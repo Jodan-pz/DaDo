@@ -10,21 +10,21 @@ namespace DaDo.Command.Configuration
     {
         private static string GetVersion() => PlatformServices.Default.Application.ApplicationVersion;
 
-        public static void Configure(CommandLineApplication app, ICommandLineOptions options)
+        public static void Configure(CommandLineApplication cmd, ICommandLineOptions options)
         {
-            app.HelpOption("-?|-h|--help");
-            app.VersionOption("--version", GetVersion);
+            cmd.HelpOption("-?|-h|--help");
+            cmd.VersionOption("--version", GetVersion);
 
-            app.Name = "DaDo";
-            app.FullName = "DaDo -- Release asset bundle generator";
-            app.Description = "Create bundle from yaml configuration";
+            cmd.Name = "DaDo";
+            cmd.FullName = "DaDo -- Release asset bundle generator";
+            cmd.Description = "Create bundle from yaml configuration";
 
-            app.Command("clean", c => CleanCommandConfiguration.Configure(c, options));
+            cmd.Command("clean", c => CleanCommandConfiguration.Configure(c, options));
             // app.Command("attack", c => AttackCommandConfiguration.Configure(c, options));
 
-            app.OnExecute(() =>
+            cmd.OnExecute(() =>
             {
-                options.Command = new RootCommand(app);
+                options.Command = new RootCommand(cmd);
                 return 0;
             });
         }

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
+using SharpYaml.Serialization;
+// using YamlDotNet.Serialization;
+// using YamlDotNet.Serialization.NamingConventions;
 
 namespace DaDo
 {
@@ -13,16 +14,18 @@ namespace DaDo
             public static void Test()
             {
                 var input = new StringReader(Document);
-                var deserializer = new DeserializerBuilder()
-                                        .WithNamingConvention(new CamelCaseNamingConvention())
-                                        .Build();
+                // var deserializer = new DeserializerBuilder()
+                //                         .WithNamingConvention(new CamelCaseNamingConvention())
+                //                         .Build();
 
                 // var order = deserializer.Deserialize<Order>(input);
 
-                var ser = new SerializerBuilder()
-                                .WithNamingConvention(new CamelCaseNamingConvention())
-                                .Build();
+                // var ser = new SerializerBuilder()
+                //                 .WithNamingConvention(new CamelCaseNamingConvention())
+                //                 .Build();
 
+                var ser = new Serializer();
+            
                 Order order = new Order();
                 order.Receipt = "My Order!";
                 order.ShipTo = new Address
@@ -101,10 +104,10 @@ namespace DaDo
                 public Customer Customer { get; set; }
                 public List<OrderItem> Items { get; set; }
 
-                [YamlMember(Alias = "bill-to")]
+                [YamlMember("bill-to")]
                 public Address BillTo { get; set; }
 
-                [YamlMember(Alias = "ship-to")]
+                [YamlMember("ship-to")]
                 public Address ShipTo { get; set; }
 
                 public string SpecialDelivery { get; set; }
@@ -118,7 +121,7 @@ namespace DaDo
 
             public class OrderItem
             {
-                [YamlMember(Alias = "part_no")]
+                [YamlMember("part_no")]
                 public string Partno { get; set; }
                 public string Descrip { get; set; }
                 public decimal Price { get; set; }
